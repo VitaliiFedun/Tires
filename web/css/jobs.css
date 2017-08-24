@@ -1,0 +1,84 @@
+.category .feed
+{
+  margin: 4px 15px;
+  float: right;
+  line-height: 25px;
+  background-position: left center;
+}
+
+.category .feed a
+{
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.disco
+{
+ width: 100%;
+ margin: 0 auto;
+}
+
+.disco tr.even
+{
+  background-color: #f3fafc;
+}
+
+.disco tr.odd
+{
+}
+
+.disco tr:hover
+{
+  background-color: #fff;
+}
+
+.disco td
+{
+  padding: 12px 15px;
+  border-bottom: 1px dotted #999;
+}
+
+.pagination_desc
+{
+  margin-left: 15px;
+  margin-top: 10px;
+  font-style: italic;
+  color: #828f95;
+  margin-bottom: 20px;
+}
+
+.pagination_desc strong
+{
+  color: #176f94;
+}
+
+.pagination
+{
+  margin-top: 10px;
+  float: right;
+  margin-right: 10px;
+  color: #176f94;
+  font-size: 110%;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.pagination a
+{
+  margin: 0 1px;
+  text-decoration: none;
+  color: #828f95;
+  font-size: 75%;
+  vertical-align: 1px;
+  font-weight: normal;
+}
+
+.pagination a:hover
+{
+  text-decoration: underline;
+}
+
+.pagination img
+{
+  vertical-align: -2px;
+}

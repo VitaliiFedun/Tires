@@ -1,0 +1,40 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           TiresAttribute
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          tires_attribute
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+
+    config:
+      actions: ~
+      fields:
+#        Що і як показувати
+        uuid_category: { label: Category }
+        multiple_choice: { label: Multiple }
+#        page_products_count: { label: шт/стр ?}
+      list:
+      #      Заголовак для списку
+        title: Admin Attribute Management
+      #         Які поля показуємо і що буде посиланням
+#        display:    [fotoname ,=name, active]
+        display:    [Uuid, =name, uuid_category, multiple_choice ]
+      #         Первинне сортування
+        sort: [name, desc]
+      #         Відміняємо групові операції
+#        batch_actions: {}
+      #         Для пагінатора TO DO
+        max_per_page: 10
+
+#        table_method: retrieveBackendJobList
+
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

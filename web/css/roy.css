@@ -1,0 +1,179 @@
+/*!
+Theme Name: Roy Tanck 2017
+Theme URI: http://www.roytanck.com
+Description: Custom WordPress theme for roytanck.com
+Version: 1.0
+Author: Roy Tanck
+Author URI: http://www.this-play.nl
+
+css/autoptimize.css
+
+/**/
+.container.showcase {
+    padding: 4em 3% 2em;
+    /*background-color: #b8d3ea*/
+}
+
+
+@media (max-width: 1610px) and (min-width: 501px) {
+    .breadcrumbcontainer, .container {
+        padding-left: 3em;
+        padding-right: 3em
+    }
+}
+
+@media (max-width: 500px) {
+    .breadcrumbcontainer, .container {
+        padding-left: 1em;
+        padding-right: 1em
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+    header #mainsearch {
+        display: block;
+        float: none;
+        clear: both;
+        /*margin-bottom: 1em;*/
+        margin-left: 0
+    }
+
+    #mainmenu {
+        float: none;
+        clear: both;
+        /*margin-bottom: 1em*/
+    }
+}
+
+header form input.search-field {
+    font-size: 1em;
+    background-color: #396c9f;
+    width: 12em;
+    padding: .25em 1em;
+    margin-left: .25em;
+    border-radius: .5em;
+    /*border: 2;  !*0*!*/
+}
+
+
+
+.boxcontainer {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    justify-content: space-around;
+}
+
+.boxcontainer .article-box {
+    max-width: 220px;
+    margin: 0 2em 2em 0;
+    padding: 10px;
+    background-color: #fff;
+    -webkit-box-flex: 0;
+    flex: 0 1 auto;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
+    -webkit-transition: .5s;
+    transition: .5s
+}
+
+
+.boxcontainer .article-box:hover {
+    -webkit-transform: rotate(0) scale(1.1) !important;
+    transform: rotate(0) scale(1.1) !important
+}
+
+.boxcontainer .article-box img.size-square {
+    width: 200px;
+    height: 200px
+}
+
+.article img {
+    max-width: 100%;
+    height: auto !important
+}
+
+.article img.alignleft {
+    float: left;
+    margin: 0 1em .5em 0
+}
+
+.article img.alignright {
+    float: right;
+    margin: 0 0 .5em 1em
+}
+
+.article iframe, .article video {
+    max-width: 100% !important
+}
+
+
+div.article-listing {
+    -webkit-column-width: 450px;
+    -moz-column-width: 450px;
+    column-width: 450px;
+    -webkit-column-gap: 2em;
+    -moz-column-gap: 2em;
+    column-gap: 2em;
+    -webkit-column-rule: 1px solid #ccc;
+    -moz-column-rule: 1px solid #ccc;
+    column-rule: 1px solid #ccc;
+    orphans: 2;
+    widows: 2
+}
+
+div.article-listing .article-index {
+    margin: 0 0 1em;
+    padding: 1em;
+    background-color: #fff;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, .1);
+    border: 1px solid #ccc;
+    -webkit-transition: .5s;
+    transition: .5s
+}
+
+div.article-listing .article-index img.size-square {
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin: 0 1em .5em 0
+}
+
+div.article-listing .article-index:hover {
+    border: 1px solid #999;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, .4)
+}
+
+.articlenav {
+    text-align: center;
+    padding: 4em 0 2em
+}
+
+.articlenav .page-numbers, .articlenav a[href='#articletop'] {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, .7);
+    padding: .25em .5em;
+    margin-left: .25em;
+    border-radius: .5em;
+    border: 1px solid #ccc;
+    color: #4c86bf !important
+}
+
+.articlenav .page-numbers.current, .articlenav a[href='#articletop'].current {
+    color: #2b537a !important;
+    background-color: #fff
+}
+
+.showcase .articlenav {
+    padding: 1.5em 0 1em
+}
+
+.showcase .articlenav .page-numbers {
+    border: 0
+}
+
+.comments, .widget {
+    border: 1px solid #ccc;
+    padding: .75em 1em 1em
+}

@@ -1,0 +1,54 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+#apps/frontend/config/routing.yml:3
+shop_search:
+  url:   /search
+  param: { module: shop, action: search }
+
+
+
+
+tires_product:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TiresProduct
+    module:               shop
+    prefix_path:          /shop
+    column:               uuid
+    with_wildcard_routes: true
+
+# default rules
+addtofavorite:
+  url:   /
+  param: { module: shop, action: addtofavorite }
+#  param: { module: default, action: index }
+
+
+# default rules
+addtocart:
+  url:   /
+  param: { module: shop, action: addtocart }
+#  param: { module: default, action: index }
+
+
+# default rules
+addtocompare:
+  url:   /
+  param: { module: shop, action: addtocompare }
+#  param: { module: default, action: index }
+
+
+# default rules
+homepage:
+  url:   /
+  param: { module: shop, action: start }
+#  param: { module: default, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

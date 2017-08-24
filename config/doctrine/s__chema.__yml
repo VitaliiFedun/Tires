@@ -1,0 +1,185 @@
+---
+detect_relations: true
+options:
+  collate: utf8_general_ci
+  charset: utf8
+  type: InnoDB
+
+detect_relations: true
+options:
+  charset: utf8
+  type: InnoDB
+
+tiresAttribute:
+  tableName: tires_attribute
+  columns:
+    uuid:
+      type: integer(8)
+      primary: true
+      notnull: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
+    uuid_category:
+      type: integer(8)
+      notnull: true
+      default: '0'
+    multiple_choice:
+      type: integer(1)
+      default: '1'
+    slug:
+      type: string(255)
+      unique: true
+      default: null
+  relations:
+    tiresCategory:
+      class: tiresCategory
+      local: uuid_category
+      foreign: uuid
+      foreignAlias: tiresAttributes
+      onDelete: cascade
+      foreignType: many
+      owningSide: true
+  indexes:
+    uuid_category_idx_idx_idx_idx:
+      fields: [uuid_category]
+  options:
+    charset: utf8
+
+tiresValueset:
+  tableName: tires_Valueset
+  columns:
+    uuid:
+      type: integer(8)
+      primary: true
+      notnull: true
+      autoincrement: true
+    product_uuid:
+      type: integer(8)
+      notnull: true
+      default: '0'
+    attribute_uuid:
+      type: integer(8)
+      notnull: true
+      default: '0'
+    value:
+      type: string(255)
+      default: null
+  relations:
+    tiresAttribute:
+      class: tiresAttribute
+      local: attribute_uuid
+      foreign: uuid
+      foreignAlias: tiresValuesets
+      foreignType: many
+      owningSide: true
+    tiresProduct:
+      class: tiresProduct
+      local: product_uuid
+      foreign: uuid
+      foreignAlias: tiresValuesets
+      foreignType: many
+      owningSide: true
+  indexes:
+    fk_products1_idx_idx_idx_idx:
+      fields: [product_uuid]
+    fk_attribut1_idx_idx_idx_idx:
+      fields: [attribute_uuid]
+  options:
+    charset: utf8
+
+tiresCategory:
+  tableName: tires_category
+  columns:
+    uuid:
+      type: integer(8)
+      primary: true
+      notnull: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
+    active:
+      type: integer(1)
+      default: '1'
+    page_products_count:
+      type: integer(4)
+      default: '10'
+    fotoname:
+      type: string(255)
+      notnull: true
+    slug:
+      type: string(255)
+      unique: true
+      default: null
+  options:
+    charset: utf8
+
+tiresProduct:
+  tableName: tires_product
+  columns:
+    uuid:
+      type: integer(8)
+      primary: true
+      notnull: true
+      autoincrement: true
+    name:
+      type: string(255)
+      notnull: true
+    uuid_category:
+      type: integer(8)
+      notnull: true
+      default: '0'
+    price:
+      type: decimal(11)
+      scale: 4
+      default: null
+    active:
+      type: integer(1)
+      default: '1'
+    fotoname:
+      type: string(255)
+      notnull: true
+    slug:
+      type: string(255)
+      unique: true
+      default: null
+  relations:
+    tiresCategory:
+      class: tiresCategory
+      local: uuid_category
+      foreign: uuid
+      foreignAlias: tiresProducts
+      onDelete: cascade
+      foreignType: many
+      owningSide: true
+  indexes:
+    uuid_category_idx_idx_idx_idx:
+      fields: [uuid_category]
+  options:
+    charset: utf8
+
+TiresGoodmenu:
+  tableName: Tires_goodmenu
+  actAs:
+    NestedSet:
+      hasManyRoots: true
+      rootColumnName: root_id
+  columns:
+    uuid:
+      type: integer(20)
+      primary: true
+      notnull: true
+      autoincrement: true
+    reference:
+      type: string(255)
+      default: null
+    name:
+      type: string(255)
+      default: null
+    level:
+      type: integer(4)
+      default: null
+  options:
+    charset: utf8

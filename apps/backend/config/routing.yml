@@ -1,0 +1,61 @@
+#tires_valueset_valueset:
+#  class: sfDoctrineRouteCollection
+#  options:
+#    model:                TiresValueset
+#    module:               valueset
+#    prefix_path:          /valueset
+#    column:               uuid
+#    with_wildcard_routes: true
+
+tires_valueset:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TiresValueset
+    module:               tires_valueset
+    prefix_path:          /tires_valueset
+    column:               uuid
+    with_wildcard_routes: true
+
+tires_attribute:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TiresAttribute
+    module:               attribute
+    prefix_path:          /attribute
+    column:               uuid
+    with_wildcard_routes: true
+
+tires_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TiresCategory
+    module:               category
+    prefix_path:          /category
+    column:               uuid
+    with_wildcard_routes: true
+
+tires_product:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TiresProduct
+    module:               product
+    prefix_path:          /product
+    column:               uuid
+    with_wildcard_routes: true
+
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+homepage:
+  url:   /
+  param: { module: product, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

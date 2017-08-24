@@ -1,0 +1,37 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           TiresCategory
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          tires_category
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+#        Що і як показувати
+        fotoname: { label: Foto}
+        page_products_count: { label: шт/стр ?}
+      list:
+      #      Заголовак для списку
+        title: Admin Category Management
+      #         Які поля показуємо і що буде посиланням
+        display:    [fotoname ,=name, page_products_count , active]
+      #         Первинне сортування
+        sort: [name, desc]
+      #         Відміняємо групові операції
+#        batch_actions: {}
+      #         Для пагінатора TO DO
+        max_per_page: 10
+
+#        table_method: retrieveBackendJobList
+
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~
