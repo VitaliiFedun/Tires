@@ -17,12 +17,14 @@ class shopActions extends sfActions
         $this->getUser()->addProductTofavorite($this->tiresproduct);
         $this->redirect('@tires_product');
     }
+
     public function executeAddtoCart(sfWebRequest $request)
     {
         $this->tiresproduct = Doctrine_Core::getTable('TiresProduct')->find(array($request->getParameter('uuid')));
         $this->getUser()->addProductToCart($this->tiresproduct);
         $this->redirect('@tires_product');
     }
+
     public function executeAddtoCompare(sfWebRequest $request)
     {
         $this->tiresproduct = Doctrine_Core::getTable('TiresProduct')->find(array($request->getParameter('uuid')));
@@ -33,21 +35,16 @@ class shopActions extends sfActions
 
     public function executeSearch(sfWebRequest $request)
     {
-        if (!$query = $request->getParameter('query'))
-        {
+        if (!$query = $request->getParameter('query')) {
             return $this->forward('shop', 'index');
         }
 
         $this->tiresproduct = Doctrine::getTable('TiresProduct')->getForLuceneQuery($query);
 
-        if ($request->isXmlHttpRequest())
-        {
-            if ('*' == $query || !$this->tiresproduct)
-            {
+        if ($request->isXmlHttpRequest()) {
+            if ('*' == $query || !$this->tiresproduct) {
                 return $this->renderText('No results.');
-            }
-            else
-            {
+            } else {
                 return $this->renderPartial('shop/table', array('tiresproduct' => $this->tiresproduct));
             }
         }
@@ -59,7 +56,9 @@ class shopActions extends sfActions
         $this->tiresproduct = Doctrine_Core::getTable('TiresProduct')->find(array($request->getParameter('uuid')));
         $this->forward404Unless($this->tiresproduct);
         $this->getUser()->addProductToHistory($this->tiresproduct);
+        $this->tirescategory = $this->getСateg();
     }
+
     public function executeStart(sfWebRequest $request)
     {
 
@@ -68,36 +67,33 @@ class shopActions extends sfActions
             ->where('active = ?', 1)
             ->execute();
 
-foreach ($this->tirescategories as $i => $tirescategories) {
+        foreach ($this->tirescategories as $i => $tirescategories) {
 
 
-    $this->setItemsPerPage($tirescategories->getUuid(), $tirescategories->getpage_products_count());
-}
+            $this->setItemsPerPage($tirescategories->getUuid(), $tirescategories->getpage_products_count());
+        }
 
 
     }
 
 
     public function executeIndex(sfWebRequest $request)
-  {
-    // sorting
-    if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
     {
-      $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
-    }
+        // sorting
+        if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort'))) {
+            $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
+        }
 
-    // pager
-    if ($request->getParameter('page'))
-    {
-      $this->setPage($request->getParameter('page'));
-    }
+        // pager
+        if ($request->getParameter('page')) {
+            $this->setPage($request->getParameter('page'));
+        }
 
 
-    // category
-    if ($request->getParameter('categ'))
-    {
-      $this->setСateg($request->getParameter('categ'));
-    }
+        // category
+        if ($request->getParameter('categ')) {
+            $this->setСateg($request->getParameter('categ'));
+        }
 
 ////      keywords
 //        if ($request->getParameter('keywords'))
@@ -106,47 +102,46 @@ foreach ($this->tirescategories as $i => $tirescategories) {
 //        }
 
 
-     $this->pager = $this->getPager();
-     $this->sort = $this->getSort();
-  }
-
-  public function executeFilter(sfWebRequest $request)
-  {
-    $this->setPage(1);
-
-    if ($request->hasParameter('_reset'))
-    {
-      $this->setFilters($this->configuration->getFilterDefaults());
-
-      $this->redirect('@tires_product');
+        $this->pager = $this->getPager();
+        $this->sort = $this->getSort();
+        $this->tirescategory = $this->getСateg();
     }
 
-    $this->filters = $this->configuration->getFilterForm($this->getFilters());
-
-    $this->filters->bind($request->getParameter($this->filters->getName()));
-    if ($this->filters->isValid())
+    public function executeFilter(sfWebRequest $request)
     {
-      $this->setFilters($this->filters->getValues());
+        $this->setPage(1);
 
-      $this->redirect('@tires_product');
+        if ($request->hasParameter('_reset')) {
+            $this->setFilters($this->configuration->getFilterDefaults());
+
+            $this->redirect('@tires_product');
+        }
+
+        $this->filters = $this->configuration->getFilterForm($this->getFilters());
+
+        $this->filters->bind($request->getParameter($this->filters->getName()));
+        if ($this->filters->isValid()) {
+            $this->setFilters($this->filters->getValues());
+
+            $this->redirect('@tires_product');
+        }
+
+        $this->pager = $this->getPager();
+        $this->sort = $this->getSort();
+
+        $this->setTemplate('index');
     }
 
-    $this->pager = $this->getPager();
-    $this->sort = $this->getSort();
 
-    $this->setTemplate('index');
-  }
+    protected function getFilters()
+    {
+        return $this->getUser()->getAttribute('product.filters', $this->configuration->getFilterDefaults(), 'admin_module');
+    }
 
-
-  protected function getFilters()
-  {
-    return $this->getUser()->getAttribute('product.filters', $this->configuration->getFilterDefaults(), 'admin_module');
-  }
-
-  protected function setFilters(array $filters)
-  {
-    return $this->getUser()->setAttribute('product.filters', $filters, 'admin_module');
-  }
+    protected function setFilters(array $filters)
+    {
+        return $this->getUser()->setAttribute('product.filters', $filters, 'admin_module');
+    }
 
 //  protected function GetItemsPerPage($categ)
 //  {
@@ -161,23 +156,23 @@ foreach ($this->tirescategories as $i => $tirescategories) {
 //  }
 
 
-    protected function setItemsPerPage($categ,$perpage )
+    protected function setItemsPerPage($categ, $perpage)
     {
-        $this->getUser()->setAttribute('product.categ'.$categ, $perpage, 'admin_module');
+        $this->getUser()->setAttribute('product.categ' . $categ, $perpage, 'admin_module');
     }
 
     protected function GetItemsPerPage($categ)
     {
-        if (0==$this->getUser()->getAttribute('product.categ'.$categ, 0, 'admin_module') ) {
+        if (0 == $this->getUser()->getAttribute('product.categ' . $categ, 0, 'admin_module')) {
             $this->setAllItemsPerPage();
         }
 
-        return $this->getUser()->getAttribute('product.categ'.$categ, 20, 'admin_module');
+        return $this->getUser()->getAttribute('product.categ' . $categ, 20, 'admin_module');
     }
 
     protected function setAllItemsPerPage()
     {
-       $tirescategory = Doctrine_Core::getTable('TiresCategory');
+        $tirescategory = Doctrine_Core::getTable('TiresCategory');
         foreach ($tirescategory as $i => $tirescategory) {
 
             $this->getUser()->setAttribute('product.categ' . $i->getUidd(), $i->getpage_products_count(), 'admin_module');
@@ -186,30 +181,30 @@ foreach ($this->tirescategories as $i => $tirescategories) {
     }
 
 
-  protected function getPager()
-  {
+    protected function getPager()
+    {
 //    $pager = $this->configuration->getPager('TiresProduct');
 
-      $items_x_page = $this->GetItemsPerPage($category = $this->getСateg());  //10; //  sfConfig::get('app_max_items_x_page');
-      $pager = new sfDoctrinePager('TiresProduct', $items_x_page);
+        $items_x_page = $this->GetItemsPerPage($category = $this->getСateg());  //10; //  sfConfig::get('app_max_items_x_page');
+        $pager = new sfDoctrinePager('TiresProduct', $items_x_page);
 
 
-    $pager->setQuery($this->buildQuery());
-    $pager->setPage($this->getPage());
-    $pager->init();
+        $pager->setQuery($this->buildQuery());
+        $pager->setPage($this->getPage());
+        $pager->init();
 
-    return $pager;
-  }
+        return $pager;
+    }
 
-  protected function setPage($page)
-  {
-    $this->getUser()->setAttribute('product.page', $page, 'admin_module');
-  }
+    protected function setPage($page)
+    {
+        $this->getUser()->setAttribute('product.page', $page, 'admin_module');
+    }
 
-  protected function getPage()
-  {
-    return $this->getUser()->getAttribute('product.page', 1, 'admin_module');
-  }
+    protected function getPage()
+    {
+        return $this->getUser()->getAttribute('product.page', 1, 'admin_module');
+    }
 
 
     protected function setСateg($categ)
@@ -223,18 +218,17 @@ foreach ($this->tirescategories as $i => $tirescategories) {
     }
 
 
-
     protected function buildQuery()
-  {
+    {
 
-      $et = Doctrine_Core::getTable('TiresProduct');
+        $et = Doctrine_Core::getTable('TiresProduct');
 
-      $query = $et->createQuery();
-      $this->addOnlyCategoryQuery($query);
-      $this->addOnlyActiveQuery($query);
-      $this->addSortQuery($query);
+        $query = $et->createQuery();
+        $this->addOnlyCategoryQuery($query);
+        $this->addOnlyActiveQuery($query);
+        $this->addSortQuery($query);
 
-      return $query;
+        return $query;
 
 
 //   $tableMethod = $this->configuration->getTableMethod();
@@ -253,75 +247,71 @@ foreach ($this->tirescategories as $i => $tirescategories) {
 //    $query = $event->getReturnValue();
 //
 //    return $query;
-  }
+    }
 
 
     protected function addOnlyCategoryQuery($query)
     {
 
-        if (null == ($category = $this->getСateg()))
-        {
+        if (null == ($category = $this->getСateg())) {
             return;
         }
 
-        $query-> where('uuid_category = ?', $category);
+        $query->where('uuid_category = ?', $category);
         return $query;
 
     }
+
     protected function addOnlyActiveQuery($query)
     {
-        $query-> addwhere('active = ?', true);
+        $query->addwhere('active = ?', true);
         return $query;
 
     }
 
 
-
-  protected function addSortQuery($query)
-  {
-    if (array(null, null) == ($sort = $this->getSort()))
+    protected function addSortQuery($query)
     {
-      return;
+        if (array(null, null) == ($sort = $this->getSort())) {
+            return;
+        }
+
+        if (!in_array(strtolower($sort[1]), array('asc', 'desc'))) {
+            $sort[1] = 'asc';
+        }
+
+        $query->addOrderBy($sort[0] . ' ' . $sort[1]);
     }
 
-    if (!in_array(strtolower($sort[1]), array('asc', 'desc')))
+    protected function getSort()
     {
-      $sort[1] = 'asc';
+        if (null !== $sort = $this->getUser()->getAttribute('product.sort', null, 'admin_module')) {
+            return $sort;
+        }
+
+        $this->setSort($this->getDefaultSort());
+
+        return $this->getUser()->getAttribute('product.sort', null, 'admin_module');
     }
 
-    $query->addOrderBy($sort[0] . ' ' . $sort[1]);
-  }
-
-  protected function getSort()
-  {
-    if (null !== $sort = $this->getUser()->getAttribute('product.sort', null, 'admin_module'))
+    protected function setSort(array $sort)
     {
-      return $sort;
+        if (null !== $sort[0] && null === $sort[1]) {
+            $sort[1] = 'asc';
+        }
+
+        $this->getUser()->setAttribute('product.sort', $sort, 'admin_module');
     }
 
-    $this->setSort($this->getDefaultSort());
-
-    return $this->getUser()->getAttribute('product.sort', null, 'admin_module');
-  }
-
-  protected function setSort(array $sort)
-  {
-    if (null !== $sort[0] && null === $sort[1])
+    protected function isValidSortColumn($column)
     {
-      $sort[1] = 'asc';
+        return Doctrine_Core::getTable('TiresProduct')->hasColumn($column);
     }
 
-    $this->getUser()->setAttribute('product.sort', $sort, 'admin_module');
-  }
-
-  protected function isValidSortColumn($column)
-  {
-    return Doctrine_Core::getTable('TiresProduct')->hasColumn($column);
-  }
     protected function getDefaultSort()
-{
-    return array(null, null);
+    {
+        return array(null, null);
 
-}
+    }
 
 }

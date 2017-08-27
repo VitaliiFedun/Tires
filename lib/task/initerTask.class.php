@@ -109,7 +109,7 @@ EOF;
         $img_name = [1 => 'tires-', 2 => 'wheel-'];
 
         $go = new Goodest();
-        $go->setGoodTree();
+//        $go->setGoodTree();
         $go->setGoodCharname();
 
         $tree = $go->getGoodTree();

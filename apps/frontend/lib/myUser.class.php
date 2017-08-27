@@ -168,5 +168,9 @@ class myUser extends sfBasicSecurityUser
         $this->getAttributeHolder()->remove('product_compare');
     }
 
+    public function getСateg()
+    {
+        return $this->getAttribute('product.categ', 1, 'admin_module');
+    }
 
 }

@@ -66,12 +66,10 @@ body
 
 header
 {
+    border-radius: 0.5em;
     display: flex;
-    border-radius: 0.7em;
-  /*background: url(../images/bg-header.jpg) repeat-x top;*/
-  /*padding-top: 5px;*/
-  /*background-color: #2a6496;*/
-  /*border-radius:0.5em*/
+    font-size: 20pt;
+    height: 70px;
     text-align: center;
 }
 
@@ -90,7 +88,7 @@ header h1 a {
   display: block;
   width: 150px;
   height: 110px;
-  background: url(../images/logo.jpg) no-repeat;
+  background: url(../legacy/images/logo.png) no-repeat;
 }
 
 
@@ -483,7 +481,7 @@ em
 
 body {
     font-family: Arial, Verdana,  sans-serif; /* Семейство шрифтов */
-    font-size: 11pt; /* Размер основного шрифта в пунктах  */
+    font-size: 14pt; /* Размер основного шрифта в пунктах  */
     background-color: #f0f0f0; /* Цвет фона веб-страницы */
     color: #333; /* Цвет основного текста */
 }
@@ -505,15 +503,15 @@ p {
 
 /*header {*/
     /*display: flex;*/
-    /*border-radius: 0.7em;*/
+    /*border-radius: 0.5em;*/
 /*}*/
 
 nav {
     display: flex;
-    border-radius: 0.7em;
+    border-radius: 0.5em;
     background-color: cornflowerblue;
-    /*height: 27px;*/
-    font-size: 16px;
+    height: 24px;
+    font-size: 9pt;
     color: white;
 }
 nav .left {
@@ -544,10 +542,6 @@ nav a:visited {
 #wrapper {
     display: flex;
 }
-/*.disco {*/
-    /*width: 100%;*/
-    /*margin: 0 auto;*/
-/*}*/
 
 aside {
     position: relative;
@@ -559,6 +553,30 @@ aside {
     /*height: 52em;*/
     text-align: center;
     border-radius: 0.5em;
+    /*display: none;*/
+
+    border: darkblue;
+    border-color: blanchedalmond;
+    border-style: ridge;
+
+}
+
+aside h1 {
+    align-content: center;
+    text-align: -webkit-center;
+    text-transform: uppercase;
+    /*background: url(../images/bg-listheader.gif) no-repeat;*/
+    line-height: 32px;
+    color: #3e8e41;
+    background-color: #9c90bb;
+    border-radius: 0.5em;
+}
+
+aside .content {
+    margin-top: -6px;
+}
+
+.img_filter {
     /*display: none;*/
 }
 section {
@@ -590,14 +608,14 @@ section h1 {
     padding: 0.2em ;
     /*color: #73B65A;*/
     background-color: #B1C4EC;
-    width: 33%;
+    width: 20%;
     float: left  ;
 }
 .blocheader.logo {
     /*padding-left: 55px;*/
-    border-top-left-radius: 0.7em;
-    border-bottom-left-radius: 0.7em;
-    width: 150px;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    width: 5%;
 
 }
 .blocheader.logo a {
@@ -607,12 +625,75 @@ section h1 {
 
 .blocheader.last {
     padding-right: 55px;
-    border-toз-right-radius: 0.7em;
-    border-bottom-right-radius: 0.7em;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    width: 35%;
 }
+.addtocart {
+    height: 8%;
+}
+.addtofavorite {
+    height: 25px;
+}
+.addtocompare {
+    height: 25px;
+}
+
+.rangeselect p,  input {
+    font-size: 10pt;
+    margin: 0px;
+    border-left: none;
+    border-bottom: none;
+    height: auto;
+    width: 135px;
+}
+#slider-range  {
+    height: 0.2em;
+    width: auto;
+}
+#slider-range > span {
+    height: 0.5em;
+}
+.rangeselect  ui-slider-horizontal, ui-slider-handle {
+    top: -.22em;
+    margin-left: -.6em;
+}
+#slider-range > span:nth-child(2){
+    top: -.2em;
+    margin-left: -.6em;
+
+}
+
+#slider-range > span:nth-child(3){
+    top: -.2em;
+    margin-left: -.6em;
+}
+
+/*#slider-range */
+
+
+
 footer {
-    /*float: right;*/
+    display: flex;
+    border-radius: 0.5em;
+    font-size: 20pt;
+    color: white;
     background-color:#9c90bb ;
-    /*clear:both;*/
+    height: 70px;
+    clear:both;
     width: 100%;
+    text-align: center;
+    /*float: right;*/
+    
+}
+.footter-all {
+    display: flex;
+    margin: 0.2em auto;
+    padding: 0.2em;
+    margin-top: 11px;
+}
+.footter-all div {
+    margin-left: 10px;
+    margin-right: 10px;
+
 }

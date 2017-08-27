@@ -31,7 +31,25 @@ protected  $GoodTree = null;
         $this->GoodTree = Doctrine_Core::getTable('TiresGoodmenu')->getTree();
     }
     protected  $GoodCharname = null;
+    protected  $GoodCharbool = null;
 
+    /**
+     * @return null
+     */
+    public function getGoodCharbool()
+    {
+        return $this->GoodCharbool;
+    }
+
+//    /**
+//     * @param null $GoodCharbool
+//     */
+//    public function setGoodCharbool($GoodCharbool)
+//    {
+//        $this->GoodCharbool = $GoodCharbool;
+//    }
+//
+//
     /**
      * @return null
      */
@@ -40,11 +58,13 @@ protected  $GoodTree = null;
         return $this->GoodCharname;
     }
 
-    /**
+    /** Заповнює приватний  масив GoodCharname назвами
+     *  атоибутів для всіх категорії
      */
     public function setGoodCharname() // TO DO is modernized
     {
         $result[]=null;
+        $booresult[]=null;
         $qws = Doctrine_Query::create()->from('TiresAttribute')
             ->execute();
 
@@ -56,10 +76,11 @@ protected  $GoodTree = null;
         foreach ($qws as  $qw) //TO DO перенести в tires
         {
             $result[$qw->uuid_category][$qw->uuid]= $qw->name;
-
+            $booresult[$qw->uuid_category][$qw->uuid]= $qw->multiple_choice;
         }
 
         $this->GoodCharname = $result;
+        $this->GoodCharbool = $booresult;
     }
 //*****************All function for work with trees data****************
 ////create table category:

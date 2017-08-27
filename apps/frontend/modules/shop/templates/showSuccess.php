@@ -3,6 +3,8 @@
 
 <?php use_helper('Text') ?>
 
+<?php include_partial('shop/aside', array('tirescategory' => $tirescategory)) ?>
+
 <h1>Show Tires Product</h1>
 
 <div id="disco">
@@ -15,9 +17,10 @@
     <?php include_partial('shop/values', array('valuessets' => $tiresproduct->getTiresValuesets())) ?>
 </div>
 
-
+<div>
 
 <a href="<?php echo url_for('shop/index') ?>">Back to List</a>
+
 
 <a href="<?php echo
 url_for(array(
@@ -36,7 +39,7 @@ url_for(array(
 ))
 ?>">
 
-    <img src="/legacy/images/cart/add-to-cart-light.png" height="25" alt="Add to Cart" />
+    <img src="/legacy/images/cart/add-to-cart-dark.png" height="25" alt="Add to Cart" />
 </a>
 <a href="<?php echo
 url_for(array(
@@ -46,6 +49,6 @@ url_for(array(
 ))
 ?>">
 
-    <img src="/legacy/images/compare/compare.png" height="25" alt="Add to Compare" />
+    <img src="/legacy/images/compare/compare2.png" height="25" alt="Add to Compare" />
 </a>
-
+</div>

@@ -6,6 +6,9 @@
     aside {
         display: none;
     }
+    section {
+        height: 52em;
+    }
 </style>
 
 <h1>Select category</h1>
@@ -25,10 +28,13 @@
                             'module'   => 'shop',
                             'action'   => 'index',
                             'categ'       => $tirescategories->getUuid()
-                        )) ?>" >
+                        ))
+                         ?>" >
 										
-                         <img  width="150" height="200"
-                                src=  <?php echo '/uploads/products/'.$tirescategories->getFotoname() ?>
+                         <img  width="150" height="200" title=
+                         <?php echo '"'.$tirescategories->getname().'"' ?>
+
+                         src=  <?php echo '/uploads/products/'.$tirescategories->getFotoname() ?>
                                 alt=    <?php echo '"'.$tirescategories->getname().'"' ?> >
 
                         </a>
@@ -36,7 +42,7 @@
                     </div>
                 </div>
 
-            <?php  $j=-1; endforeach; ?>
+            <?php  endforeach; ?>
 			<!--foreach end -->
         </div>
 

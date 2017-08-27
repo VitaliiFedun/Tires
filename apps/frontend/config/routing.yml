@@ -17,25 +17,25 @@ tires_product:
     column:               uuid
     with_wildcard_routes: true
 
-# default rules
-addtofavorite:
-  url:   /
-  param: { module: shop, action: addtofavorite }
-#  param: { module: default, action: index }
-
-
-# default rules
-addtocart:
-  url:   /
-  param: { module: shop, action: addtocart }
-#  param: { module: default, action: index }
-
-
-# default rules
-addtocompare:
-  url:   /
-  param: { module: shop, action: addtocompare }
-#  param: { module: default, action: index }
+## default rules
+#addtofavorite:
+#  url:   /
+#  param: { module: shop, action: addtofavorite }
+##  param: { module: default, action: index }
+#
+#
+## default rules
+#addtocart:
+#  url:   /
+#  param: { module: shop, action: addtocart }
+##  param: { module: default, action: index }
+#
+#
+## default rules
+#addtocompare:
+#  url:   /
+#  param: { module: shop, action: addtocompare }
+##  param: { module: default, action: index }
 
 
 # default rules
