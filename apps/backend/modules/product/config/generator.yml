@@ -17,7 +17,9 @@ generator:
 
       fields:
 #        Що і як показувати
-        fotoname: { label: Foto}
+        fotoname: { label: Foееto}
+        uuid_category: { label:  Category}
+        value: { label: C:}
 #        page_products_count: { label: шт/стр ?}
       list:
       #      Заголовак для списку
@@ -27,7 +29,7 @@ generator:
       #         Первинне сортування
         sort: [name, desc]
       #         Відміняємо групові операції
-#        batch_actions: {}
+        batch_actions: {}
       #         Для пагінатора TO DO
         max_per_page: 10
 
@@ -35,5 +37,11 @@ generator:
 
       filter:  ~
       form:    ~
-      edit:    ~
+      edit:
+        title: Editing "%%name%%"
+        fields:
+#         Що і як показувати
+          fotoname: { label: Fotto}
+          uuid_category: { label:  Category}
+          value: { label: Val }
       new:     ~

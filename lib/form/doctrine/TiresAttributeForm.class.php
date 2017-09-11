@@ -12,5 +12,8 @@ class TiresAttributeForm extends BaseTiresAttributeForm
 {
   public function configure()
   {
+      unset(
+          $this['slug']
+      );
   }
 }

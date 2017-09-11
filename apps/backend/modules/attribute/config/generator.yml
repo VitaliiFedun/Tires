@@ -17,7 +17,7 @@ generator:
       fields:
 #        Що і як показувати
         uuid_category: { label: Category }
-        multiple_choice: { label: Multiple }
+        multiple_choice: { label: Multipled ? }
 #        page_products_count: { label: шт/стр ?}
       list:
       #      Заголовак для списку
@@ -36,5 +36,6 @@ generator:
 
       filter:  ~
       form:    ~
-      edit:    ~
+      edit:
+#        display: [name, uuid_category, multiple_choice ]
       new:     ~

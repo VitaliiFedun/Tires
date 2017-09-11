@@ -1,12 +1,14 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 #apps/frontend/config/routing.yml:3
+
+shop_filter:
+  url:   /filter
+  param: { module: shop, action: filter }
+
 shop_search:
   url:   /search
   param: { module: shop, action: search }
-
-
-
 
 tires_product:
   class: sfDoctrineRouteCollection

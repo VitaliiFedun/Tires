@@ -42,7 +42,7 @@ abstract class BaseProductGeneratorConfiguration extends sfModelGeneratorConfigu
 
   public function getListBatchActions()
   {
-    return array(  '_delete' => NULL,);
+    return array();
   }
 
   public function getListParams()
@@ -62,7 +62,7 @@ abstract class BaseProductGeneratorConfiguration extends sfModelGeneratorConfigu
 
   public function getEditTitle()
   {
-    return 'Edit Product';
+    return 'Editing "%%name%%"';
   }
 
   public function getNewTitle()
@@ -100,11 +100,12 @@ abstract class BaseProductGeneratorConfiguration extends sfModelGeneratorConfigu
     return array(
       'uuid' => array(  'is_link' => true,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',),
       'name' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',),
-      'uuid_category' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'ForeignKey',),
+      'uuid_category' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'ForeignKey',  'label' => 'Category',),
       'price' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',),
-      'active' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',),
-      'fotoname' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',  'label' => 'Foto',),
+      'active' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Boolean',),
+      'fotoname' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',  'label' => 'Foееto',),
       'slug' => array(  'is_link' => false,  'is_real' => true,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',),
+      'value' => array(  'is_link' => false,  'is_real' => false,  'is_partial' => false,  'is_component' => false,  'type' => 'Text',  'label' => 'C:',),
     );
   }
 
@@ -152,11 +153,12 @@ abstract class BaseProductGeneratorConfiguration extends sfModelGeneratorConfigu
     return array(
       'uuid' => array(),
       'name' => array(),
-      'uuid_category' => array(),
+      'uuid_category' => array(  'label' => 'Category',),
       'price' => array(),
       'active' => array(),
-      'fotoname' => array(),
+      'fotoname' => array(  'label' => 'Fotto',),
       'slug' => array(),
+      'value' => array(  'label' => 'Val',),
     );
   }
 

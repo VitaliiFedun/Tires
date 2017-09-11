@@ -1,6 +1,6 @@
 <?php use_stylesheet('jobs.css') ?>
 <?php use_stylesheet('roy.css') ?>
-<?php use_stylesheet('styles.css') ?>
+<?php //use_stylesheet('styles.css') ?>
 <?php slot('title',"Tires & Wheel - Start page" ) ?>
 <style type="text/css">
     aside {

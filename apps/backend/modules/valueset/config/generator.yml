@@ -13,9 +13,14 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+#        value: {label: C:}
       list:    ~
       filter:  ~
       form:    ~
-      edit:    ~
+      edit:
+#        display: [value]
+#        fields:
+#         Що і як показувати
+#          value: { label: C: }
       new:     ~

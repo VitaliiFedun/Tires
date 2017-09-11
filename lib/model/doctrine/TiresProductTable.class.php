@@ -88,5 +88,20 @@ class TiresProductTable extends Doctrine_Table
         $q->andWhere($alias . '.active = ?', 1);
         return $q;
     }
+    static public function applyPricedFilter($query, $value,$position)
+    {
+      if ( empty($value['text'])) return $query;
+        $alias = $query->getRootAlias();
+        switch ($position)
+          {
+            case '1':
+                $query->addWhere('price > ?', (int)$value['text']);
+                break;
+            case '2':
+                $query->addWhere('price < ?', (int)$value['text']);
+                break;
+        }
+        return $query;
+    }
 
 }

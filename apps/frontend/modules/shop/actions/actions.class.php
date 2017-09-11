@@ -10,6 +10,90 @@
  */
 class shopActions extends sfActions
 {
+    public function preExecute()
+    {
+        $this->configuration = new productGeneratorConfiguration();
+
+        if (!$this->getUser()->hasCredential($this->configuration->getCredentials($this->getActionName())))
+        {
+            $this->forward(sfConfig::get('sf_secure_module'), sfConfig::get('sf_secure_action'));
+        }
+
+        $this->dispatcher->notify(new sfEvent($this, 'admin.pre_execute', array('configuration' => $this->configuration)));
+
+        $this->helper = new productGeneratorHelper();
+
+        parent::preExecute();
+    }
+
+
+    public function executeIndex(sfWebRequest $request)
+    {
+        // sorting
+        if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort'))) {
+            $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
+        }
+
+        // pager
+        if ($request->getParameter('page')) {
+            $this->setPage($request->getParameter('page'));
+        }
+
+
+        // category
+        if ($request->getParameter('categ')) {
+            $this->setCateg($request->getParameter('categ'));
+        }
+
+        $this->filter = new TiresProductFormFilter();
+//        $this->users = $this->getRoute()->getObjects();
+
+        //  keywords
+//        if ($request->getParameter('query'))
+//        {
+//            $this->setKeywords($request->getParameter('query'));
+//        }
+
+
+//        $this->keywords = $this->getKeywords();
+        $this->pager = $this->getPager();
+        $this->sort = $this->getSort();
+        $this->tirescategory = $this->getCateg();
+        $searchquery = $this->getSearchQuery();
+        if (!$searchquery === '') {
+            $searchquery = $searchquery . '*';
+        }
+        $this->tiresproduct = Doctrine::getTable('TiresProduct')->getForLuceneQuery($searchquery);
+    }
+
+    public function executeSearch(sfWebRequest $request)
+    {
+        if ($request->hasParameter('_reset')) {
+            $this->setSearchQuery('');
+//            echo  $reset;
+            return $this->forward('shop', 'index');   /*if query ==='' worker*/
+        }
+
+
+        if ((!$query = $request->getParameter('query')) or ($request->hasParameter('_reset'))) {
+            return $this->forward('shop', 'index');   /*if query ==='' worker*/
+        }
+        $this->tiresproduct = Doctrine::getTable('TiresProduct')->getForLuceneQuery($query . '*');
+
+        if ($request->isXmlHttpRequest()) {
+            if ('*' == $query || !$this->tiresproduct) {
+                return $this->renderText('No results.' . count($this->tiresproduct) . "!");
+            } else {
+
+                $this->setSearchQuery($query);
+                return $this->renderPartial(
+                    'shop/table', array('tiresproducts' => $this->tiresproduct, 'sort' => $this->getSort()));
+//                return $this ->tiresproduct;
+
+            }
+        }
+    }
+
 
     public function executeAddtofavorite(sfWebRequest $request)
     {
@@ -32,31 +116,14 @@ class shopActions extends sfActions
         $this->redirect('@tires_product');
     }
 
-
-    public function executeSearch(sfWebRequest $request)
-    {
-        if (!$query = $request->getParameter('query')) {
-            return $this->forward('shop', 'index');
-        }
-
-        $this->tiresproduct = Doctrine::getTable('TiresProduct')->getForLuceneQuery($query);
-
-        if ($request->isXmlHttpRequest()) {
-            if ('*' == $query || !$this->tiresproduct) {
-                return $this->renderText('No results.');
-            } else {
-                return $this->renderPartial('shop/table', array('tiresproduct' => $this->tiresproduct));
-            }
-        }
-    }
-
-
     public function executeShow(sfWebRequest $request)
     {
         $this->tiresproduct = Doctrine_Core::getTable('TiresProduct')->find(array($request->getParameter('uuid')));
         $this->forward404Unless($this->tiresproduct);
         $this->getUser()->addProductToHistory($this->tiresproduct);
-        $this->tirescategory = $this->getСateg();
+        $this->tirescategory = $this->getCateg();
+        $this->filter = new TiresProductFormFilter();
+
     }
 
     public function executeStart(sfWebRequest $request)
@@ -77,41 +144,65 @@ class shopActions extends sfActions
     }
 
 
-    public function executeIndex(sfWebRequest $request)
-    {
-        // sorting
-        if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort'))) {
-            $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
-        }
-
-        // pager
-        if ($request->getParameter('page')) {
-            $this->setPage($request->getParameter('page'));
-        }
-
-
-        // category
-        if ($request->getParameter('categ')) {
-            $this->setСateg($request->getParameter('categ'));
-        }
-
-////      keywords
-//        if ($request->getParameter('keywords'))
-//        {
-//            $this->setСateg($request->getParameter('keywords'));
+//    public function executeFilter(sfWebRequest $request)
+//    {
+//        $this->setPage(1);
+//
+//        if ($request->hasParameter('_reset')) {
+//            $this->setFilters($this->configuration->getFilterDefaults());
+//
+//            $this->redirect('@tires_product');
 //        }
+//
+//        $this->filters = $this->configuration->getFilterForm($this->getFilters());
+//
+//        $this->filters->bind($request->getParameter($this->filters->getName()));
+//        if ($this->filters->isValid()) {
+//            $this->setFilters($this->filters->getValues());
+//
+//            $this->redirect('@tires_product');
+//        }
+//
+//        $this->pager = $this->getPager();
+//        $this->sort = $this->getSort();
+//
+//        $this->setTemplate('index');
+//
+//
+//    }
+//    public function executeFilter(sfWebRequest $request)
+//    {
+//        // устанавливаем страницу на первую
+//        $this->setPage(1);
+//        // если сбрасывается страница, то убираем параметры для фильтра
+//        if ($request->hasParameter('_reset')) {
+//            $this->setFilters(array());
+//
+//            $this->redirect('@tires_product');
+//        }
+//// создаем форму для фильтра
+//        $this->filters = new TiresProductFormFilter();
+//// получаем параметры переданной формы
+//        $this->filters->bind($request->getParameter($this->filters->getName()));
+//// проверяем на валидность
+//        if ($this->filters->isValid()) {
+//            $this->setFilters($this->filters->getValues());
+//            // все хорошо? переходим на первую страницу и пытаемся получить контент
+//            $this->redirect('@tires_product');
+//        }
+//// все плохо или был сброс фильтра - выдаем контент (так тут вроде)
+//        $this->pager = $this->getPager();
+//
+//        $this->setTemplate('index');
+//    }
 
-
-        $this->pager = $this->getPager();
-        $this->sort = $this->getSort();
-        $this->tirescategory = $this->getСateg();
-    }
 
     public function executeFilter(sfWebRequest $request)
     {
         $this->setPage(1);
 
-        if ($request->hasParameter('_reset')) {
+        if ($request->hasParameter('_reset'))
+        {
             $this->setFilters($this->configuration->getFilterDefaults());
 
             $this->redirect('@tires_product');
@@ -120,7 +211,8 @@ class shopActions extends sfActions
         $this->filters = $this->configuration->getFilterForm($this->getFilters());
 
         $this->filters->bind($request->getParameter($this->filters->getName()));
-        if ($this->filters->isValid()) {
+        if ($this->filters->isValid())
+        {
             $this->setFilters($this->filters->getValues());
 
             $this->redirect('@tires_product');
@@ -133,28 +225,40 @@ class shopActions extends sfActions
     }
 
 
-    protected function getFilters()
+//=======================================
+    protected function getKeywords()
     {
-        return $this->getUser()->getAttribute('product.filters', $this->configuration->getFilterDefaults(), 'admin_module');
+        return $this->getUser()->getAttribute('product.keywords', '', 'admin_module');
     }
 
-    protected function setFilters(array $filters)
+    protected function setKeywords(array $keywords)
+    {
+        return $this->getUser()->setAttribute('product.keywords', $keywords, 'admin_module');
+    }
+
+
+//    =================================
+//    protected function getFilters()
+//    {
+//        return $this->getUser()->getAttribute('product.filters', $this->configuration->getFilterDefaults(), 'admin_module');
+//    }
+    // получаем фильтры, если их нет получаем установки по умолчанию
+    protected function getFilters()
+    {
+        return $this->getUser()->getAttribute('product.filters', $this->getFilterDefaults(), 'admin_module');
+    }
+
+    // значения фильтров по умолчанию
+    protected function getFilterDefaults()
+    {
+        return array();
+    }
+
+
+protected function setFilters(array $filters)
     {
         return $this->getUser()->setAttribute('product.filters', $filters, 'admin_module');
     }
-
-//  protected function GetItemsPerPage($categ)
-//  {
-//        if ($categ == 0)
-//        {
-//            return 20;
-//
-//        }
-//      $this->tirescategories = Doctrine_Core::getTable('TiresCategory')->find($categ);
-//
-//      return $this->tirescategories->getpage_products_count();
-//  }
-
 
     protected function setItemsPerPage($categ, $perpage)
     {
@@ -185,7 +289,7 @@ class shopActions extends sfActions
     {
 //    $pager = $this->configuration->getPager('TiresProduct');
 
-        $items_x_page = $this->GetItemsPerPage($category = $this->getСateg());  //10; //  sfConfig::get('app_max_items_x_page');
+        $items_x_page = $this->GetItemsPerPage($category = $this->getCateg());  //10; //  sfConfig::get('app_max_items_x_page');
         $pager = new sfDoctrinePager('TiresProduct', $items_x_page);
 
 
@@ -195,6 +299,64 @@ class shopActions extends sfActions
 
         return $pager;
     }
+
+//    protected function buildQuery() /*from backend_dev.php*/
+//    {
+//        $tableMethod = $this->configuration->getTableMethod();
+//        if (null === $this->filters)
+//        {
+//            $this->filters = $this->configuration->getFilterForm($this->getFilters());
+//        }
+//
+//        $this->filters->setTableMethod($tableMethod);
+//
+//        $query = $this->filters->buildQuery($this->getFilters());
+//
+//        $this->addSortQuery($query);
+//
+//        $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_query'), $query);
+//        $query = $event->getReturnValue();
+//
+//        return $query;
+//    }
+
+    protected function buildQuery()
+    {
+
+        $et = Doctrine_Core::getTable('TiresProduct');
+
+        $query = $et->createQuery();
+        $this->addOnlyCategoryQuery($query);
+        $this->addOnlyActiveQuery($query);
+        $this->addSortQuery($query);
+//        $this->addSearchQuery($query);
+        // создаем форму фильтров и устанавливаем текущие данные или данные по умолчанию для формы фильтров
+    if(null===$this->filters)
+    {
+        $this->filters = new TiresProductFormFilter($this->getFilters());
+    }
+    // устанавливаем метод для обработки данных
+    // метод должен быть определен в модели !!!
+    $this->filters->setTableMethod('getActiveProducts');
+    // добавляем к нашему методу параметры фильтрации
+    $values=$this->filters->processValues($this->getFilters());
+    $query=$this->filters->buildQuery($values);
+    // и так понятно
+//    return$query;
+
+        return $query;
+    }
+
+    protected function setSearchQuery($query)
+    {
+        $this->getUser()->setAttribute('product.search', $query, 'admin_module');
+    }
+
+    protected function getSearchQuery()
+    {
+        return $this->getUser()->getAttribute('product.search', '', 'admin_module');
+    }
+
 
     protected function setPage($page)
     {
@@ -207,53 +369,21 @@ class shopActions extends sfActions
     }
 
 
-    protected function setСateg($categ)
+    protected function setCateg($categ)
     {
         $this->getUser()->setAttribute('product.categ', $categ, 'admin_module');
     }
 
-    protected function getСateg()
+    protected function getCateg()
     {
         return $this->getUser()->getAttribute('product.categ', 1, 'admin_module');
-    }
-
-
-    protected function buildQuery()
-    {
-
-        $et = Doctrine_Core::getTable('TiresProduct');
-
-        $query = $et->createQuery();
-        $this->addOnlyCategoryQuery($query);
-        $this->addOnlyActiveQuery($query);
-        $this->addSortQuery($query);
-
-        return $query;
-
-
-//   $tableMethod = $this->configuration->getTableMethod();
-//    if (null === $this->filters)
-//    {
-//      $this->filters = $this->configuration->getFilterForm($this->getFilters());
-//    }
-//
-//    $this->filters->setTableMethod($tableMethod);
-//
-//    $query = $this->filters->buildQuery($this->getFilters());
-//
-//    $this->addSortQuery($query);
-//
-//    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_query'), $query);
-//    $query = $event->getReturnValue();
-//
-//    return $query;
     }
 
 
     protected function addOnlyCategoryQuery($query)
     {
 
-        if (null == ($category = $this->getСateg())) {
+        if (null == ($category = $this->getCateg())) {
             return;
         }
 
@@ -315,3 +445,5 @@ class shopActions extends sfActions
     }
 
 }
+
+

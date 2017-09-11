@@ -1,6 +1,5 @@
 <!-- apps/backend/templates/layout.php-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>Tires Admin Interface</title>
@@ -29,6 +28,9 @@
             </li>
             <li>
                 <?php echo link_to('Attribute', '/backend_dev.php/attribute') ?>
+            </li>
+            <li>
+                <?php echo link_to('! ValueSet !', '/backend_dev.php/valueset') ?>
             </li>
 
 

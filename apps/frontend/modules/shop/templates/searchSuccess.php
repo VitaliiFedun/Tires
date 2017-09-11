@@ -8,11 +8,9 @@
 ?>
 <?php use_stylesheet('jobs.css') ?>
 
-<h1>Show Search Result</h1>
+<h1>Show Search Result: <?php echo $tiresproduct->count() ?>  </h1>
 
-<!--<div id="disco">-->
-<!--    --><?php //include_partial('shop/table', array('tiresproduct' => $tiresproduct)) ?>
-<!--</div>-->
 
-<?php include_partial('shop/table', array('tiresproducts' => $tiresproduct,'sort' => array(null,null))) ?>
+<?php  include_partial('shop/table', array('tiresproducts' => $tiresproduct,'sort' => array(null,null))) ?>
 <h1> </h1>
+<?php //include_partial('shop/pagination', array('pager' => $pager )) ?>

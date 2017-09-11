@@ -11,8 +11,10 @@ class Goodest
 {
 
 protected $fotonamefilecategory ='categ-';
+    protected  $GoodTree = null;
+    protected  $GoodCharname = null;
+    protected  $GoodCharbool = null;
 
-protected  $GoodTree = null;
 
     /**
      * @return null
@@ -30,8 +32,6 @@ protected  $GoodTree = null;
 
         $this->GoodTree = Doctrine_Core::getTable('TiresGoodmenu')->getTree();
     }
-    protected  $GoodCharname = null;
-    protected  $GoodCharbool = null;
 
     /**
      * @return null
@@ -41,15 +41,7 @@ protected  $GoodTree = null;
         return $this->GoodCharbool;
     }
 
-//    /**
-//     * @param null $GoodCharbool
-//     */
-//    public function setGoodCharbool($GoodCharbool)
-//    {
-//        $this->GoodCharbool = $GoodCharbool;
-//    }
-//
-//
+
     /**
      * @return null
      */
@@ -68,10 +60,6 @@ protected  $GoodTree = null;
         $qws = Doctrine_Query::create()->from('TiresAttribute')
             ->execute();
 
-//        for ($i=1;$i<=$qws->count();$i++){
-//            $result[$qws->uuid_category][$i]=array('name'=>$qws->name,'uuid'=>$qws->uuid);
-//
-//        }
 
         foreach ($qws as  $qw) //TO DO перенести в tires
         {

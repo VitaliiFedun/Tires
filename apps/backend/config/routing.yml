@@ -1,11 +1,11 @@
-#tires_valueset_valueset:
-#  class: sfDoctrineRouteCollection
-#  options:
-#    model:                TiresValueset
-#    module:               valueset
-#    prefix_path:          /valueset
-#    column:               uuid
-#    with_wildcard_routes: true
+tires_valueset_valueset:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TiresValueset
+    module:               valueset
+    prefix_path:          /valueset
+    column:               uuid
+    with_wildcard_routes: true
 
 tires_valueset:
   class: sfDoctrineRouteCollection

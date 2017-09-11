@@ -33,5 +33,6 @@ generator:
 
       filter:  ~
       form:    ~
-      edit:    ~
+      edit:
+       display:    [fotoname ,=name, page_products_count , active]
       new:     ~

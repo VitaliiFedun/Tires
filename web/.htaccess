@@ -2,7 +2,10 @@ Options +FollowSymLinks +ExecCGI
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-
+# php_value xdebug.remote_host=127.0.?.?
+#  php_value xdebug.remote_port=9007
+php_value xdebug.remote_enable 1
+php_value xdebug.remote_port 9001
   # uncomment the following line, if you are having trouble
   # getting no_script_name to work
   #RewriteBase /
@@ -11,7 +14,7 @@ Options +FollowSymLinks +ExecCGI
   #RewriteCond %{REQUEST_URI} \..+$
   #RewriteCond %{REQUEST_URI} !\.html$
   #RewriteRule .* - [L]
-
+  Redirect /web http://tires.localhost/
   # we check if the .html version is here (caching)
   RewriteRule ^$ index.html [QSA]
   RewriteRule ^([^.]+)$ $1.html [QSA]

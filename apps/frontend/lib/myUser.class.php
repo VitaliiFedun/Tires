@@ -2,6 +2,13 @@
 
 class myUser extends sfBasicSecurityUser
 {
+//  ================= filter  =================
+ public function getFilterFilds($nomcateg, $key)
+ {
+     $this->getAttribute('product_filter', array());
+
+ }
+
 //  ==================================
     public function addProductToHistory(TiresProduct $product)
     {

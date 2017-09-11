@@ -1,9 +1,11 @@
 <?php use_stylesheet('jobs.css') ?>
-<?php use_stylesheet('styles.css') ?>
+<?php //use_stylesheet('styles.css') ?>
 
 <?php use_helper('Text') ?>
 
-<?php include_partial('shop/aside', array('tirescategory' => $tirescategory)) ?>
+<?php //include_partial('shop/aside', array('tirescategory' => $tirescategory)) ?>
+<?php include_partial('shop/aside', array('tirescategory' => $tirescategory,'filters'=>$filter, 'configuration' => $configuration)) ?>
+
 
 <h1>Show Tires Product</h1>
 
@@ -52,3 +54,4 @@ url_for(array(
     <img src="/legacy/images/compare/compare2.png" height="25" alt="Add to Compare" />
 </a>
 </div>
+<?php //echo $TiresProductFormFilter ?>

@@ -11,3 +11,4 @@ require_once(dirname(__FILE__).'/../config/ProjectConfiguration.class.php');
 
 $configuration = ProjectConfiguration::getApplicationConfiguration('backend', 'dev', true);
 sfContext::createInstance($configuration)->dispatch();
+//#sf_fieldset_none > div.sf_admin_form_row.sf_admin_text.sf_admin_form_field_ЦВЕТ

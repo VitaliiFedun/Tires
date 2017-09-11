@@ -404,6 +404,10 @@ em
 #job_form .radio_list label {
   margin-right: 15px;
 }
+#sf_admin_container .content_vf label {
+    display: none;
+
+}
 
 
 #job_form th
@@ -577,7 +581,7 @@ aside .content {
 }
 
 .img_filter {
-    /*display: none;*/
+    display: none;
 }
 section {
     /*color: #333333;*/
@@ -649,7 +653,9 @@ section h1 {
 }
 #slider-range  {
     height: 0.2em;
-    width: auto;
+    width: 93%;
+    margin-bottom: 0.5em;
+
 }
 #slider-range > span {
     height: 0.5em;
@@ -696,4 +702,25 @@ footer {
     margin-left: 10px;
     margin-right: 10px;
 
+}
+ul.options {
+    list-style-type: none;
+    /*width: 15em;*/
+    margin: 0.3em 0;
+    padding: 0;
+}
+
+ul.options li {
+    background: #DEF url(http://odyniec.net/articles/multiple-select-fields/cross_bright.png) no-repeat 98% center;
+    margin: 1px;
+    padding: 0.1em 0.3em;
+    cursor: pointer;
+    color: #46A;
+    font-weight: bold;
+    border: solid 1px #CDE;
+}
+
+select.options {
+    color: #46A;
+    font-weight: bold;
 }

@@ -2,7 +2,7 @@
 <?php include_partial('product/assets') ?>
 
 <div id="sf_admin_container">
-  <h1><?php echo __('Edit Product', array(), 'messages') ?></h1>
+  <h1><?php echo __('Editing "%%name%%"', array('%%name%%' => $tiresproduct->getname()), 'messages') ?></h1>
 
   <?php include_partial('product/flashes') ?>
 

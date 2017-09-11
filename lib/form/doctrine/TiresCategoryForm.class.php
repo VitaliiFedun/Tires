@@ -12,7 +12,9 @@ class TiresCategoryForm extends BaseTiresCategoryForm
 {
     public function configure()
     {
-
+        unset(
+            $this['slug']
+        );
         parent::configure();
 
         $this->setWidget('fotoname', new sfWidgetFormInputFileEditable(array(
