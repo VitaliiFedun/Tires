@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * TiresProduct form.
+ *
+ * @package    tires
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
+class TiresProductForm extends BaseTiresProductForm
+{
+//    public function configure()
+//    {
+//        $subForm = new sfForm();
+//        for ($i = 0; $i < 2; $i++)
+//        {
+//            $productPhoto = new ProductPhoto();
+//            $productPhoto->Product = $this->getObject();
+//
+//            $form = new ProductPhotoForm($productPhoto);
+//
+//            $subForm->embedForm($i, $form);
+//        }
+//        $this->embedForm('newPhotos', $subForm);
+//    }
+    public function configure()
+    {
+
+        unset(
+            $this['slug']
+        );
+//        parent::configure();
+
+        $subForm = new sfForm();
+
+
+        $this->setWidget('fotoname', new sfWidgetFormInputFileEditable(array(
+            'file_src'  => '/uploads/products/'.$this->getObject()->getfotoname(),
+            'is_image' => true,
+            'with_delete' => false, //(boolean) $this->getObject()->getFile(),
+            'edit_mode' => !$this->isNew() && $this->getObject()->getFotoName(),
+        )));
+        $this->setValidator('fotoname', new sfValidatorFile(array(
+            'mime_types' => 'web_images',
+            'required' => false,
+            'path'       => sfConfig::get('sf_upload_dir').'/products',
+        )));
+        $this->setValidator('fotoname_delete', new sfValidatorBoolean());
+
+        $attrs=$this->getObject()->getTiresValuesets();
+        $coll = $attrs->count();
+//
+//        $this->setWidget('coll', new sfWidgetFormInputText(array( 'coll'=>$coll) ));
+//        echo "<pre>";
+//print_r($coll);
+//echo "</pre>";
+//
+//        echo '!!!!!!!!!!!!!'.$coll;
+//        $link[]=null;
+       foreach ($attrs as $key => $attr ) {
+
+
+           $link = new TiresValuesetShortForm($attr );
+//           unset(
+//               $this['product_uuid']
+//           );
+           $this->embedForm($key,$link );
+//           $this->widgetSchema->setLabels(array(
+//               'attributes_uuid'    => 'Name',
+//               'value'      => 'Value'
+//
+//           ));
+
+
+           //           $this->useFields(array('name'));
+//           $this->useFields(array('name', 'value'/*=> $attr->getvalue())));
+
+//           $this->setValidators(array(
+//               'value'   => new sfValidatorString(),
+//           ));
+
+
+       }
+        $this->embedForm('newPhotos', $subForm);
+    }
+}
