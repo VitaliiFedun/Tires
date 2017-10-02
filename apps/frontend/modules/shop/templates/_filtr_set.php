@@ -20,15 +20,18 @@ if ($bool_check) {
 }
 ?>
 
-<select  <?php echo $insert_str.'id="filter_'.$key.'"'?>
-        <?php echo 'title="Set value filter for: '.$attrib_name.'"' ?>
+<select  <?php echo $insert_str.'id="filter'.$key.'" ';
+
+          echo ' name="tires_product_filters[fildfilter'.$key.']"';
+?>
+        <?php echo 'title="Set your value filter for: '.$attrib_name.'"' ?>
     onchange="setvisible(<?php echo "'".$key."'"?>,'block')"
 >
 
     <option value='empty' disabled selected>      </option>
 <?php $i=1;
 foreach ( $attrib_sets as $attrib_set):?>
-<?php  ($set_value = $attrib_set) ? $term = 'selected':$term = ''; ?>
+<?php  ($set_value == $attrib_set) ? $term = 'selected':$term = ''; ?>
    <option <?php echo 'value="'.$attrib_set.'"'.$term.'>'.$attrib_set.'</option>' ?>
 
  <?php $i++; endforeach; ?>

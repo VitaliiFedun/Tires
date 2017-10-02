@@ -4,7 +4,7 @@
 <?php use_helper('Text') ?>
 
 <?php //include_partial('shop/aside', array('tirescategory' => $tirescategory)) ?>
-<?php include_partial('shop/aside', array('tirescategory' => $tirescategory,'filters'=>$filter, 'configuration' => $configuration)) ?>
+<?php //include_partial('shop/aside', array('tirescategory' => $tirescategory,'filters'=>$filter, 'configuration' => $configuration)) ?>
 
 
 <h1>Show Tires Product</h1>

@@ -1,11 +1,15 @@
 Options +FollowSymLinks +ExecCGI
+# сжатие text, html, javascript, css, xml:
+<ifModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css text/javascript application/javascript application/x-javascript
+</ifModule>
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-# php_value xdebug.remote_host=127.0.?.?
+# php_value xdebug.remote_host=127.0.0.1
 #  php_value xdebug.remote_port=9007
 php_value xdebug.remote_enable 1
-php_value xdebug.remote_port 9001
+php_value xdebug.remote_port 9007
   # uncomment the following line, if you are having trouble
   # getting no_script_name to work
   #RewriteBase /

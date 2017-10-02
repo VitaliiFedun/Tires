@@ -90,41 +90,24 @@ class TiresProductForm extends BaseTiresProductForm
 
         $promts=$go->getGoodCharname();
         $cat=$this->getObject()->uuid_category;
+//        (x > y? 'Passed the test' : 'Failed the test')
+        if ($cat==0) {
+            $cat=1;
+        }
+
         $promt_categs=$promts[$cat];
 
 
-//        foreach ($valueattrs as $key => $valueattr ) {
-        foreach ($promt_categs as $key => $promt_categ ) {
-
-//           var_dump($attr);
-
-           $link = new TiresValuesetShortForm($valueattrs[$key] );
+        foreach ($valueattrs as $key => $valueattr ) {
+//        foreach ($promt_categs as $key => $promt_categ ) {
+          $link = new TiresValuesetShortForm($valueattrs[$key]);
            unset(
                $this['product_uuid']
                ,$link['attributes_uuid']
            );
-
-
-           $this->embedForm($valueattrs[$key]->getTiresAttribute() ,$link );
-
-
-//           $this->widgetSchema->setLabels(array(
-//               'attributes_uuid'    => 'Name',
-//               'value'      => 'Value'
-//
-//           ));
-
-
-           //           $this->useFields(array('name'));
-//           $this->useFields(array('name', 'value'/*=> $attr->getvalue())));
-
-//           $this->setValidators(array(
-//               'value'   => new sfValidatorString(),
-//           ));
-
+            $this->embedForm($valueattrs[$key]->getTiresAttribute() ,$link );
 
        }
 
-//        $this->embedForm('newPhotos', $subForm);
     }
 }

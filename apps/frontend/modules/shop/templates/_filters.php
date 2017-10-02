@@ -18,13 +18,7 @@
   ?>" method="post">
     <table cellspacing="0">
       <tfoot>
-        <tr>
-          <td colspan="2">
-            <?php echo $form->renderHiddenFields() ?>
-            <?php echo link_to('Reset', 'shop_filter', array('action' => 'filter'), array('query_string' => '_reset', 'method' => 'post')) ?>
-            <input type="submit" value="<?php echo 'Filter' ?>" />
-          </td>
-        </tr>
+       </tr>
       </tfoot>
       <tbody>
         <?php foreach ($configuration->getFormFilterFields($form) as $name => $field): ?>
@@ -40,6 +34,28 @@
           )) ?>
         <?php endforeach; ?>
       </tbody>
+<!--    </table>-->
+      <?php include_partial('shop/filters_end',
+          array('form' => $form, /*filters,*/
+              'configuration' => $configuration,
+              'tirescategory' => $tirescategory))
+      ?>
+
+        <tr>
+            <td colspan="2">
+              <h2>&nbsp</h2>
+
+            </td>
+        </tr>
+
+        <tr>
+
+          <td colspan="2">
+              <?php echo $form->renderHiddenFields() ?>
+              <?php echo link_to('Reset', 'shop_filter', array('action' => 'filter'), array('query_string' => '_reset', 'method' => 'post')) ?>
+              <input type="submit" value="<?php echo 'Filter' ?>" />
+          </td>
     </table>
+
   </form>
 </div>

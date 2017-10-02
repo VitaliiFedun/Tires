@@ -405,10 +405,13 @@ em
   margin-right: 15px;
 }
 #sf_admin_container .content_vf label {
-    display: none;
+    /*display: none;*/
 
 }
 
+#tires_product_filters_priceto, #tires_product_filters_pricefrom {
+    /*display: none;*/
+}
 
 #job_form th
 {
@@ -564,6 +567,14 @@ aside {
     border-style: ridge;
 
 }
+
+/*.sf_admin_filter_field_pricefrom label {*/
+    /*display: none;*/
+/*}*/
+/*#tires_product_filters_pricefrom {*/
+    /*display: none;*/
+/*}*/
+
 
 aside h1 {
     align-content: center;

@@ -1,5 +1,5 @@
 <?php
-//    cache/backend/dev/modules/autoProduct/actions/actions.class.php
+
 require_once(dirname(__FILE__).'/../lib/BaseProductGeneratorConfiguration.class.php');
 require_once(dirname(__FILE__).'/../lib/BaseProductGeneratorHelper.class.php');
 

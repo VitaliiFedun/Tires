@@ -98,6 +98,29 @@
     </div>
 </footer>
 
+
+<script>
+    $(function () {
+        $("#slider-range").slider({
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                $("#tires_product_filters_pricefrom").val(ui.values[0]);
+                $("#tires_product_filters_priceto").val(ui.values[1]);
+                setvisible('price', 'block');
+            }
+        });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+            " - $" + $("#slider-range").slider("values", 1));
+
+//        $("#tires_product_filters_pricefrom").val($("#slider-range").slider("values", 0) );
+//        $("#tires_product_filters_priceto").val($("#slider-range").slider("values", 1) );
+          setvisible('price', 'block');
+    });
+
+</script>
+
+
+
 </body>
 
 

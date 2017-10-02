@@ -75,6 +75,22 @@ class TiresProductTable extends Doctrine_Table
     {
         return $this->addActiveProductsQuery($q)->count();
     }
+    public function getMaxPrice($ProductsCategory)
+    {
+
+        if (is_null($ProductsCategory)) { return 0; }
+        $q = Doctrine_Query::create()
+            ->from('TiresProduct t');
+        $q->andWhere('t.active = ?', 1);
+        $q->addSelect('max(t.price)');
+        $q->andWhere('t.uuid_category = ?', $ProductsCategory);
+//
+//        SELECT MAX(t.price+1) AS t__0 FROM Tires_product t WHERE (t.active = ? AND t.uuid_category = ?)
+        $q->execute();
+        $this->maxvalue = $q->fetchOne();
+        return $this->maxvalue['max'];
+
+    }
 
     public function addActiveProductsQuery(Doctrine_Query $q = null)
     {
